@@ -44,6 +44,15 @@ final class SuperPayDashboardViewController: UIViewController, SuperPayDashboard
         return button
     }()
     
+    private let cardView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 16
+        view.layer.cornerCurve = .continuous
+        view.backgroundColor = .systemIndigo
+        return view
+    }()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
         
@@ -58,6 +67,7 @@ final class SuperPayDashboardViewController: UIViewController, SuperPayDashboard
     
     private func setupViews() {
         view.addSubview(headerStackView)
+        view.addSubview(cardView)
         
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.addArrangedSubview(topupButton)
@@ -65,7 +75,13 @@ final class SuperPayDashboardViewController: UIViewController, SuperPayDashboard
         NSLayoutConstraint.activate([
             headerStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             headerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            headerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            headerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            cardView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 10),
+            cardView.heightAnchor.constraint(equalToConstant: 180),
+            cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            cardView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            cardView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
     }
     
