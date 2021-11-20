@@ -8,14 +8,11 @@
 import ModernRIBs
 
 protocol SuperPayDashboardDependency: Dependency {
-    // TODO: Declare the set of dependencies required by this RIB, but cannot be
-    // created by this RIB.
+    var balance: ReadOnlyCurrentValuePublisher<Double> { get }
 }
 
 final class SuperPayDashboardComponent: Component<SuperPayDashboardDependency>, SuperPayDashboardInteractorDependency {
-    var balance: ReadOnlyCurrentValuePublisher<Double>
-    
-
+    var balance: ReadOnlyCurrentValuePublisher<Double> { dependency.balance }
 }
 
 // MARK: - Builder

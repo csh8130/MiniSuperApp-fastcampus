@@ -29,7 +29,7 @@ final class SuperPayDashboardInteractor: PresentableInteractor<SuperPayDashboard
     weak var router: SuperPayDashboardRouting?
     weak var listener: SuperPayDashboardListener?
 
-    private let dependency: SuperPayDashboardDependency
+    private let dependency: SuperPayDashboardInteractorDependency
     
     init(
         presenter: SuperPayDashboardPresentable,
