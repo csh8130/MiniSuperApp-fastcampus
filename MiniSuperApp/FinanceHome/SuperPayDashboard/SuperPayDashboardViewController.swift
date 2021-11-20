@@ -67,7 +67,6 @@ final class SuperPayDashboardViewController: UIViewController, SuperPayDashboard
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .semibold)
         label.textColor = .white
-        label.text = "10,000"
         return label
     }()
     
