@@ -8,7 +8,7 @@ protocol FinanceHomePresentableListener: AnyObject {
 }
 
 final class FinanceHomeViewController: UIViewController, FinanceHomePresentable, FinanceHomeViewControllable {
-  
+
   weak var listener: FinanceHomePresentableListener?
     
     private let stackView: UIStackView = {
@@ -44,4 +44,13 @@ final class FinanceHomeViewController: UIViewController, FinanceHomePresentable,
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
     ])
   }
+    
+    func addDashboard(_ view: ViewControllable) {
+        let vc = view.uiviewController
+        
+        addChild(vc)
+        stackView.addArrangedSubview(vc.view)
+        vc.didMove(toParent: self)
+    }
+    
 }
