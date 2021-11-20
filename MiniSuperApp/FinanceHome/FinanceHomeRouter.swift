@@ -10,10 +10,16 @@ protocol FinanceHomeViewControllable: ViewControllable {
 }
 
 final class FinanceHomeRouter: ViewableRouter<FinanceHomeInteractable, FinanceHomeViewControllable>, FinanceHomeRouting {
-  
-  // TODO: Constructor inject child builder protocols to allow building children.
-  override init(interactor: FinanceHomeInteractable, viewController: FinanceHomeViewControllable) {
-    super.init(interactor: interactor, viewController: viewController)
-    interactor.router = self
-  }
+    
+    private let superPayDashboardBuildable: SuperPayDashboardBuildable
+    
+    init(
+        interactor: FinanceHomeInteractable,
+        viewController: FinanceHomeViewControllable,
+        superPayDashboardBuildable: SuperPayDashboardBuildable
+    ) {
+        self.superPayDashboardBuildable = superPayDashboardBuildable
+        super.init(interactor: interactor, viewController: viewController)
+        interactor.router = self
+    }
 }

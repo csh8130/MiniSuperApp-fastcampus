@@ -32,7 +32,8 @@ final class FinanceHomeBuilder: Builder<FinanceHomeDependency>, FinanceHomeBuild
       
     return FinanceHomeRouter(
         interactor: interactor,
-        viewController: viewController
+        viewController: viewController,
+        superPayDashboardBuildable: superPayDashboardBuilder
     )
   }
 }
