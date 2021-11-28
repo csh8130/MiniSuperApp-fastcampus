@@ -54,16 +54,45 @@ final class CardOnFileDashboardViewController: UIViewController, CardOnFileDashb
         setupViews()
     }
     
+    private let cardOnFileStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    private lazy var addMethodButton: AddPaymentMethodButton = {
+        let button = AddPaymentMethodButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.roundCorners()
+        button.backgroundColor = .systemGray4
+        button.addTarget(self, action: #selector(addButtonDidTap), for: .touchUpInside)
+        return button
+    }()
+    
     private func setupViews() {
         view.addSubview(headerStackView)
+        view.addSubview(cardOnFileStackView)
         
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.addArrangedSubview(seeAllButton)
+        
+        cardOnFileStackView.addArrangedSubview(addMethodButton)
         
         NSLayoutConstraint.activate([
             headerStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             headerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             headerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            cardOnFileStackView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 10),
+            cardOnFileStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            cardOnFileStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            cardOnFileStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            addMethodButton.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
     
@@ -73,4 +102,9 @@ final class CardOnFileDashboardViewController: UIViewController, CardOnFileDashb
     }
 
     weak var listener: CardOnFileDashboardPresentableListener?
+    
+    @objc
+    private func addButtonDidTap() {
+        
+    }
 }
