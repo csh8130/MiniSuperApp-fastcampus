@@ -6,6 +6,7 @@
 //
 
 import ModernRIBs
+import Combine
 
 protocol CardOnFileDashboardRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
@@ -20,21 +21,34 @@ protocol CardOnFileDashboardListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
+protocol CardOnFileDashboardInteractorDependency {
+    var cardsOnFileRepository: CardOnFileRepository { get }
+}
+
 final class CardOnFileDashboardInteractor: PresentableInteractor<CardOnFileDashboardPresentable>, CardOnFileDashboardInteractable, CardOnFileDashboardPresentableListener {
 
     weak var router: CardOnFileDashboardRouting?
     weak var listener: CardOnFileDashboardListener?
 
-    // TODO: Add additional dependencies to constructor. Do not perform any logic
-    // in constructor.
-    override init(presenter: CardOnFileDashboardPresentable) {
+    private let dependency: CardOnFileDashboardInteractorDependency
+    
+    private var cancellables: Set<AnyCancellable>
+    init(
+        presenter: CardOnFileDashboardPresentable,
+        dependency: CardOnFileDashboardInteractorDependency
+    ) {
+        self.dependency = dependency
+        self.cancellables = .init()
         super.init(presenter: presenter)
         presenter.listener = self
     }
 
     override func didBecomeActive() {
         super.didBecomeActive()
-        // TODO: Implement business logic here.
+        
+        dependency.cardsOnFileRepository.cardOnFile.sink { methods in
+            //TODO
+        }.store(in: &cancellables)
     }
 
     override func willResignActive() {
