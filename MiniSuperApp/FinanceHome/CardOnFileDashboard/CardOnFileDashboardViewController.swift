@@ -82,7 +82,7 @@ final class CardOnFileDashboardViewController: UIViewController, CardOnFileDashb
         }
         
         cardOnFileStackView.addArrangedSubview(addMethodButton)
-        let heightConstraints = view.map { $0.heightAnchor.constraint(equalToConstant: 60) }
+        let heightConstraints = views.map { $0.heightAnchor.constraint(equalToConstant: 60) }
         NSLayoutConstraint.activate(heightConstraints)
     }
     
