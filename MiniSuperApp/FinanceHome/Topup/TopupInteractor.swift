@@ -28,6 +28,8 @@ final class TopupInteractor: Interactor, TopupInteractable {
     override func didBecomeActive() {
         super.didBecomeActive()
         // TODO: Implement business logic here.
+        
+        print("did become active")
     }
     
     override func willResignActive() {
