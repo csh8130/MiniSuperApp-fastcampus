@@ -16,20 +16,31 @@ protocol TopupListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
+protocol TopupInteractorDependency {
+    var cardsOnFileRepository: CardOnFileRepository { get }
+}
+
 final class TopupInteractor: Interactor, TopupInteractable {
     
     weak var router: TopupRouting?
     weak var listener: TopupListener?
     
-    // TODO: Add additional dependencies to constructor. Do not perform any logic
-    // in constructor.
-    override init() {}
+    private let dependency: TopupInteractorDependency
+    
+    init(
+        dependency: TopupInteractorDependency
+    ) {
+        self.dependency = dependency
+    }
     
     override func didBecomeActive() {
         super.didBecomeActive()
-        // TODO: Implement business logic here.
         
-        print("did become active")
+        if dependency.cardsOnFileRepository.cardOnFile.value.isEmpty {
+            // 카드 추가 화면
+        } else {
+            // 금액 입력 화면
+        }
     }
     
     override func willResignActive() {
