@@ -7,9 +7,10 @@
 
 import ModernRIBs
 
-protocol TopupInteractable: Interactable {
+protocol TopupInteractable: Interactable, AddPaymentMethodListener {
     var router: TopupRouting? { get set }
     var listener: TopupListener? { get set }
+    var presentationDelegateProxy: AdaptivePresentationControllerDelegateProxy { get }
 }
 
 protocol TopupViewControllable: ViewControllable {
@@ -20,9 +21,18 @@ protocol TopupViewControllable: ViewControllable {
 
 final class TopupRouter: Router<TopupInteractable>, TopupRouting {
     
-    // TODO: Constructor inject child builder protocols to allow building children.
-    init(interactor: TopupInteractable, viewController: ViewControllable) {
+    private var navigationControllable: NavigationControllerable?
+    
+    private let addPaymentMethodBuildable: AddPaymentMethodBuildable
+    private var addPaymentMethodRouting: Routing?
+    
+    init(
+        interactor: TopupInteractable,
+        viewController: ViewControllable,
+        addPaymentMethodBuildable: AddPaymentMethodBuildable
+    ) {
         self.viewController = viewController
+        self.addPaymentMethodBuildable = addPaymentMethodBuildable
         super.init(interactor: interactor)
         interactor.router = self
     }
@@ -30,6 +40,35 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
     func cleanupViews() {
         // TODO: Since this router does not own its view, it needs to cleanup the views
         // it may have added to the view hierarchy, when its interactor is deactivated.
+    }
+    
+    func attachAddPaymentMethod() {
+        if addPaymentMethodRouting != nil {
+            return
+        }
+        
+        let router = addPaymentMethodBuildable.build(withListener: interactor)
+        
+    }
+    
+    func detachAddPaymentMethod() {
+        
+    }
+    
+    private func presentInsideNavigation(_ viewController: ViewControllable) {
+        let navigation = NavigationControllerable(root: viewController)
+        navigation.navigationController.presentationController?.delegate = interactor.presentationDelegateProxy
+        self.navigationControllable = navigation
+        viewController.present(navigation, animated: true, completion: nil)
+    }
+    
+    private func dismissPresentedNavigation(completion: (() -> Void)?) {
+        if self.navigationControllable == nil {
+            return
+        }
+        
+        viewController.dismiss(completion: completion)
+        self.navigationControllable = nil
     }
     
     // MARK: - Private
