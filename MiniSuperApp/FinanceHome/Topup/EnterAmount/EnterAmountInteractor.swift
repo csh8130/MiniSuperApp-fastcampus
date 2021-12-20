@@ -41,4 +41,16 @@ final class EnterAmountInteractor: PresentableInteractor<EnterAmountPresentable>
         super.willResignActive()
         // TODO: Pause any business logic.
     }
+    
+    func didTapClose() {
+        
+    }
+    
+    func didTapPaymentMethod() {
+        
+    }
+    
+    func didTapTopup(with amount: Double) {
+        
+    }
 }
