@@ -13,8 +13,20 @@ protocol TopupDependency: Dependency {
 }
 
 final class TopupComponent: Component<TopupDependency>, TopupInteractorDependency, AddPaymentMethodDependency, EnterAmountDependency, CardOnFileDependency {
+    var selectedPaymentMethod: ReadOnlyCurrentValuePublisher<PaymentMethod> { paymentMethodStream }
+    
     var cardsOnFileRepository: CardOnFileRepository { dependency.cardsOnFileRepository }
     fileprivate var topupBaseViewController: ViewControllable { dependency.topupBaseViewController }
+    
+    let paymentMethodStream: CurrentValuePublisher<PaymentMethod>
+    
+    init(
+        dependency: TopupDependency,
+        paymentMethodStream: CurrentValuePublisher<PaymentMethod>
+    ) {
+        self.paymentMethodStream = paymentMethodStream
+        super.init(dependency: dependency)
+    }
 }
 
 // MARK: - Builder
@@ -30,7 +42,9 @@ final class TopupBuilder: Builder<TopupDependency>, TopupBuildable {
     }
     
     func build(withListener listener: TopupListener) -> TopupRouting {
-        let component = TopupComponent(dependency: dependency)
+        let paymentMethodStream = CurrentValuePublisher(PaymentMethod(id: "", name: "", digits: "", color: "", isPrimary: false))
+        
+        let component = TopupComponent(dependency: dependency, paymentMethodStream: paymentMethodStream)
         let interactor = TopupInteractor(dependency: component)
         interactor.listener = listener
         
