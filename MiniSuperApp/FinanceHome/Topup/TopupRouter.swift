@@ -53,13 +53,19 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
         }
     }
     
-    func attachAddPaymentMethod() {
+    func attachAddPaymentMethod(closeButtonType: DismissButtonType) {
         if addPaymentMethodRouting != nil {
             return
         }
         
-        let router = addPaymentMethodBuildable.build(withListener: interactor)
-        presentInsideNavigation(router.viewControllable)
+        let router = addPaymentMethodBuildable.build(withListener: interactor, closeButtonType: closeButtonType)
+        
+        if let navigationControllable = navigationControllable {
+            navigationControllable.pushViewController(router.viewControllable, animated: true)
+        } else {
+            presentInsideNavigation(router.viewControllable)
+        }
+        
         attachChild(router)
         addPaymentMethodRouting = router
         
@@ -70,7 +76,7 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
             return
         }
         
-        dismissPresentedNavigation(completion: nil)
+        navigationControllable?.popViewController(animated: true)
         detachChild(router)
         addPaymentMethodRouting = nil
     }
@@ -122,6 +128,11 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
         navigationControllable?.popViewController(animated: true)
         detachChild(router)
         cardsOnFileRouting = nil
+    }
+    
+    func popToRoot() {
+        navigationControllable?.popToRoot(animated: true)
+        resetChildRouting()
     }
     
     private func presentInsideNavigation(_ viewControllable: ViewControllable) {
