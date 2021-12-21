@@ -15,6 +15,7 @@
 		BA2002582765DDBC00E4BB95 /* TopupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2002552765DDBC00E4BB95 /* TopupRouter.swift */; };
 		BA2002592765DDBC00E4BB95 /* TopupBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2002562765DDBC00E4BB95 /* TopupBuilder.swift */; };
 		BA20025A2765DDBC00E4BB95 /* TopupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2002572765DDBC00E4BB95 /* TopupInteractor.swift */; };
+		BA4AA5532772339F003D7071 /* SuperPayRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4AA5522772339F003D7071 /* SuperPayRepository.swift */; };
 		BA50C871274A08BA00A61AC5 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA50C870274A08BA00A61AC5 /* Formatter.swift */; };
 		BA5F3FAE2765281C00FC5870 /* AdaptivePresentationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5F3FAD2765281C00FC5870 /* AdaptivePresentationControllerDelegate.swift */; };
 		BA6FBFC927496280007FC00F /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = BA6FBFC827496280007FC00F /* CombineExt */; };
@@ -92,6 +93,7 @@
 		BA2002552765DDBC00E4BB95 /* TopupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupRouter.swift; sourceTree = "<group>"; };
 		BA2002562765DDBC00E4BB95 /* TopupBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupBuilder.swift; sourceTree = "<group>"; };
 		BA2002572765DDBC00E4BB95 /* TopupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupInteractor.swift; sourceTree = "<group>"; };
+		BA4AA5522772339F003D7071 /* SuperPayRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperPayRepository.swift; sourceTree = "<group>"; };
 		BA50C870274A08BA00A61AC5 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		BA5F3FAD2765281C00FC5870 /* AdaptivePresentationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptivePresentationControllerDelegate.swift; sourceTree = "<group>"; };
 		BA6FBFCA274962CB007FC00F /* Combine+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Utils.swift"; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				BA95906F2753F84700660FEA /* CardOnFileRepository.swift */,
+				BA4AA5522772339F003D7071 /* SuperPayRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				BA20025A2765DDBC00E4BB95 /* TopupInteractor.swift in Sources */,
 				BAA018562770F7B600BDC82D /* CardOnFileRouter.swift in Sources */,
 				F57F6AFE26DB4CD700C0117D /* RootTabBarController.swift in Sources */,
+				BA4AA5532772339F003D7071 /* SuperPayRepository.swift in Sources */,
 				BAA018412770DB9400BDC82D /* EnterAmountRouter.swift in Sources */,
 				BA08E8632748B75E000644D0 /* SuperPayDashboardBuilder.swift in Sources */,
 				BA6FBFCB274962CB007FC00F /* Combine+Utils.swift in Sources */,
