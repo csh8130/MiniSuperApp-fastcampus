@@ -96,12 +96,12 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
         enterAmountRouting = nil
     }
     
-    func attachCardOnFile() {
+    func attachCardOnFile(paymentMethods: [PaymentMethod]) {
         if cardsOnFileRouting != nil {
             return
         }
         
-        let router = cardsOnFileBuildable.build(withListener: interactor)
+        let router = cardsOnFileBuildable.build(withListener: interactor, paymentMethods: paymentMethods)
         navigationControllable?.pushViewController(router.viewControllable, animated: true)
         cardsOnFileRouting = router
         attachChild(router)
