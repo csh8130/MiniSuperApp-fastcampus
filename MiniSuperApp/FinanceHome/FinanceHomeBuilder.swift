@@ -1,24 +1,20 @@
 import ModernRIBs
 
 protocol FinanceHomeDependency: Dependency {
-  // TODO: Declare the set of dependencies required by this RIB, but cannot be
-  // created by this RIB.
+    var cardsOnFileRepository: CardOnFileRepository { get }
+    var superPayRepository: SuperPayRepository { get }
 }
 
 final class FinanceHomeComponent: Component<FinanceHomeDependency>, SuperPayDashboardDependency, CardOnFileDashboardDependency, AddPaymentMethodDependency, TopupDependency {
-    let cardsOnFileRepository: CardOnFileRepository
-    let superPayRepository: SuperPayRepository
+    var cardsOnFileRepository: CardOnFileRepository { dependency.cardsOnFileRepository }
+    var superPayRepository: SuperPayRepository { dependency.superPayRepository }
     var balance: ReadOnlyCurrentValuePublisher<Double> { superPayRepository.balance }
     var topupBaseViewController: ViewControllable
     
     init(
         dependency: FinanceHomeDependency,
-        cardOnFileRepository: CardOnFileRepository,
-        superPayRepository: SuperPayRepository,
         topupBaseViewController: ViewControllable
     ) {
-        self.cardsOnFileRepository = cardOnFileRepository
-        self.superPayRepository = superPayRepository
         self.topupBaseViewController = topupBaseViewController
         super.init(dependency: dependency)
     }
@@ -41,8 +37,6 @@ final class FinanceHomeBuilder: Builder<FinanceHomeDependency>, FinanceHomeBuild
       
       let component = FinanceHomeComponent(
         dependency: dependency,
-        cardOnFileRepository: CardOnFileRepositoryImp(),
-        superPayRepository: SuperPayRepositoryImp(),
         topupBaseViewController: viewController
       )
     

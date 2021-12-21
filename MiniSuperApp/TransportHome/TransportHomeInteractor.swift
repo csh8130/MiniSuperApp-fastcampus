@@ -15,18 +15,25 @@ protocol TransportHomeListener: AnyObject {
 }
 
 protocol TransportHomeInteractorDependency {
+    var superPayBalance: ReadOnlyCurrentValuePublisher<Double> { get }
 }
 
 final class TransportHomeInteractor: PresentableInteractor<TransportHomePresentable>, TransportHomeInteractable, TransportHomePresentableListener {
   
   weak var router: TransportHomeRouting?
   weak var listener: TransportHomeListener?
+    
+    private let dependency: TransportHomeInteractorDependency
   
   
-  override init(presenter: TransportHomePresentable) {
-    super.init(presenter: presenter)
-    presenter.listener = self
-  }
+    init(
+        presenter: TransportHomePresentable,
+        dependency: TransportHomeInteractorDependency
+    ) {
+        self.dependency = dependency
+        super.init(presenter: presenter)
+        presenter.listener = self
+    }
   
   override func didBecomeActive() {
     super.didBecomeActive()
